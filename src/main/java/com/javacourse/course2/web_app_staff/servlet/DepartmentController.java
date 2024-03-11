@@ -22,6 +22,7 @@ import com.javacourse.course2.web_app_staff.service.impl.ServiceException;
 @RequestMapping("/department")
 public class DepartmentController {
 
+	private static final String ID = "id";
 	private static final String ERROR_MESSAGE = "Department isn't found";
 	private DepartmentService departmentService;
 
@@ -35,7 +36,7 @@ public class DepartmentController {
 	}
 
 	@GetMapping("/{id}")
-	public DepartmentDto getDepartment(@PathVariable("id") @org.hibernate.validator.constraints.UUID String id) throws ControllerException {
+	public DepartmentDto getDepartment(@PathVariable(ID) @org.hibernate.validator.constraints.UUID String id) throws ControllerException {
 		try {
 			UUID uuid = UUID.fromString(id);
 			return departmentService.findById(uuid);
@@ -50,7 +51,7 @@ public class DepartmentController {
 	}
 
 	@PutMapping("/{id}")
-	public DepartmentDto updateDepartment(@RequestBody DepartmentDto department, @PathVariable("id") @org.hibernate.validator.constraints.UUID String id) throws ControllerException {
+	public DepartmentDto updateDepartment(@RequestBody DepartmentDto department, @PathVariable(ID) @org.hibernate.validator.constraints.UUID String id) throws ControllerException {
 		try {
 			return departmentService.update(department);
 		} catch (ServiceException e) {
@@ -59,7 +60,7 @@ public class DepartmentController {
 	}
 
 	@DeleteMapping("/{id}")
-	public void deleteDepartment(@PathVariable("id") @org.hibernate.validator.constraints.UUID String id) throws ControllerException {
+	public void deleteDepartment(@PathVariable(ID) @org.hibernate.validator.constraints.UUID String id) throws ControllerException {
 		try {
 			departmentService.delete(UUID.fromString(id));
 		} catch (ServiceException e) {
